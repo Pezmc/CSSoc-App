@@ -1,0 +1,1300 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SocialMediaDashboard.W8.Common"
+    xmlns:tiles="using:SocialMediaDashboard.W8.VariableTemplate"
+    >
+
+    <!-- styles for rich textblock -->
+    <Style x:Key="RTBullet" TargetType="Ellipse">
+        <Setter Property="Fill" Value="Black" />
+        <Setter Property="Width" Value="6" />
+        <Setter Property="Height" Value="6" />
+        <Setter Property="Margin" Value="-30,0,0,1" />
+    </Style>
+
+    <Style x:Key="RTLink" TargetType="HyperlinkButton">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Margin" Value="-15,-13, -5, -13" />
+    </Style>
+
+    <Style x:Key="RTLinkOnly" TargetType="HyperlinkButton">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="-10,-5" />
+    </Style>
+
+    <Style x:Key="RTLinkLI" TargetType="HyperlinkButton">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="-15,-9" />
+    </Style>
+
+    <Style x:Key="RTImage" TargetType="Image">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Stretch" Value="None" />
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- end styles for rich textblock -->
+
+    <ControlTemplate x:Key="DateBlockTemplate">
+        <Canvas Height="86" Width="86"  Margin="4,0,0,4" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock TextTrimming="WordEllipsis" TextWrapping="NoWrap" 
+                   Width="Auto" Height="Auto" Margin="8,0,4,0" 
+                   FontSize="32" FontWeight="Bold">
+                <TextBlock.Text>
+                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="month"  />
+                </TextBlock.Text>
+            </TextBlock>
+
+            <TextBlock TextTrimming="WordEllipsis" TextWrapping="Wrap" 
+                   Width="40" Height="Auto" Margin="4,0,0,0" 
+                   FontSize="34" FontWeight="Bold" Canvas.Top="36">
+                <TextBlock.Text>
+                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="day"  />
+                </TextBlock.Text>
+            </TextBlock>
+            <Line Stroke="White" StrokeThickness="2" X1="54" Y1="46" X2="54" Y2="80" />
+
+            <TextBlock TextWrapping="Wrap" 
+            Width="20" Height="Auto" 
+            FontSize="{StaticResource ControlContentThemeFontSize}" Canvas.Top="42" Canvas.Left="60">
+                <TextBlock.Text>
+                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="year"  />
+                </TextBlock.Text>
+            </TextBlock>
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="DateBlockTemplateSnapped">
+        <Canvas Height="76" Width="76"  Margin="4,4,0,4" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <TextBlock TextTrimming="WordEllipsis" TextWrapping="NoWrap" 
+                   Width="Auto" Height="Auto" Margin="4,0,2,0" 
+                   FontSize="16" FontWeight="Bold">
+                <TextBlock.Text>
+                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="month"  />
+                </TextBlock.Text>
+            </TextBlock>
+
+            <TextBlock TextTrimming="WordEllipsis" TextWrapping="Wrap" 
+                   Width="30" Height="Auto" Margin="2,0,0,0" 
+                   FontSize="24" FontWeight="Bold" Canvas.Top="24">
+                <TextBlock.Text>
+                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="day"  />
+                </TextBlock.Text>
+            </TextBlock>
+            <Line Stroke="White" StrokeThickness="2" X1="44" Y1="36" X2="44" Y2="70" />
+
+            <TextBlock TextWrapping="Wrap" 
+            Width="20" Height="Auto" 
+            FontSize="{StaticResource ControlContentThemeFontSize}" Canvas.Top="32" Canvas.Left="50">
+                <TextBlock.Text>
+                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="year"  />
+                </TextBlock.Text>
+            </TextBlock>
+        </Canvas>
+    </ControlTemplate>
+
+    <DataTemplate x:Key="BigVideoItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="450" Height="320" >
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Image Source="{Binding Path=HQImage}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Margin="0, -64,0,0"/>
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}" Height="65">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" TextTrimming="WordEllipsis" Margin="7.5,5,5,0"/>
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}"  Foreground="White" TextWrapping="NoWrap" Margin="7.5,0,5,0"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SmallLVideoItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="240" Height="180">
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Image Source="{Binding Path=HQImage}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Margin="0, -32,0,0"/>
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}" Height="90">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" TextWrapping="NoWrap" FontSize="12" Width="150" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Margin="5,5,5,0"/>
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" TextWrapping="NoWrap" Margin="5,0,5,0"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BigSpotlightTileItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="360" Height="360" >
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Image Source="{Binding Path=HQImage}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" AutomationProperties.Name="{Binding Title}" Margin="0,-64,0,0"/>
+            </Border>
+            <Border Background="{StaticResource AppDarkColor}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="{Binding OverlayOpacity}"/>
+            <TextBlock Text="{Binding TileLabel}" FontFamily="{StaticResource AppFontFamily}" Margin="5,5,40,5" TextWrapping="Wrap" Foreground="White" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Stretch" Opacity="{Binding LabelOpacity}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SmallSpotlightTileItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="180" Height="180">
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Image Source="{Binding Path=HQImage}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" AutomationProperties.Name="{Binding Title}" Margin="0,-30,0,0"/>
+            </Border>
+            <Border Background="{StaticResource AppDarkColor}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="{Binding OverlayOpacity}"/>
+            <TextBlock Text="{Binding TileLabel}" FontFamily="{StaticResource AppFontFamily}" Margin="5,5,40,5" TextWrapping="Wrap" Foreground="White" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Stretch" Opacity="{Binding LabelOpacity}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BigSpotlightPlayTileItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="360" Height="360" >
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Image Source="{Binding Path=HQImage}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" AutomationProperties.Name="{Binding Title}" Margin="0,-64,0,0"/>
+            </Border>
+            <Ellipse VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="60" Margin="-30,-30,0,0" StrokeThickness="2" RenderTransformOrigin="0.5, 0.5">
+                <Ellipse.Fill>
+                    <SolidColorBrush Color="White" Opacity="0"/>
+                </Ellipse.Fill>
+                <Ellipse.Stroke>
+                    <SolidColorBrush Color="White" Opacity="1"/>
+                </Ellipse.Stroke>
+            </Ellipse>
+            <TextBlock Text="&#xE102;" FontFamily="Segoe UI Symbol" FontSize="37.5" Opacity="1" Margin="-30,-30,0,0"  HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+            <Border Background="{StaticResource AppDarkColor}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="{Binding OverlayOpacity}"/>
+            <TextBlock Text="{Binding TileLabel}" FontFamily="{StaticResource AppFontFamily}" Margin="5,5,40,5" TextWrapping="Wrap" Foreground="White" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Stretch" Opacity="{Binding LabelOpacity}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SmallSpotlightPlayTileItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="180" Height="180">
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Image Source="{Binding Path=HQImage}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" AutomationProperties.Name="{Binding Title}" Margin="0,-30,0,0"/>
+            </Border>
+            <Ellipse VerticalAlignment="Center" HorizontalAlignment="Center" Width="60" Height="60" Margin="-30,-30,0,0" StrokeThickness="2" RenderTransformOrigin="0.5, 0.5">
+                <Ellipse.Fill>
+                    <SolidColorBrush Color="White" Opacity="0"/>
+                </Ellipse.Fill>
+                <Ellipse.Stroke>
+                    <SolidColorBrush Color="White" Opacity="1"/>
+                </Ellipse.Stroke>
+            </Ellipse>
+            <TextBlock Text="&#xE102;" FontFamily="Segoe UI Symbol" FontSize="37.5" Opacity="1" Margin="-30,-30,0,0"  HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+            <Border Background="{StaticResource AppDarkColor}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="{Binding OverlayOpacity}"/>
+            <TextBlock Text="{Binding TileLabel}" FontFamily="{StaticResource AppFontFamily}" Margin="5,5,40,5" TextWrapping="Wrap" Foreground="White" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Stretch" Opacity="{Binding LabelOpacity}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BlogPostItemTopBarTemplate">
+        <Grid HorizontalAlignment="Left" Width="220" Height="120" Background="{StaticResource AppDarkColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" Margin="12,0" TextWrapping="Wrap"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="12,12,12,0">
+                <TextBlock Foreground="White" FontWeight="Light" Margin="0,0,4,0">
+                    <TextBlock.Text>
+                        <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="day"  />
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock Foreground="White" FontWeight="Light" Margin="0,0,4,0">
+                    <TextBlock.Text>
+                        <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="month"  />
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock Foreground="White" FontWeight="Light">
+                    <TextBlock.Text>
+                        <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="year"  />
+                    </TextBlock.Text>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BlogPostItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="400" Height="90" Background="{StaticResource AppTransparentColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource AppDarkColor}" Height="90" Width="90" Grid.Column="0">
+                <ContentControl Template="{StaticResource DateBlockTemplate}"/>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="10,0,20,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" MaxHeight="60" />
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" />
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+
+    <!-- For image news item -->
+    <DataTemplate x:Key="BlogPostItem2Template">
+        <Grid HorizontalAlignment="Left" Width="400" Height="240" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Source="{Binding FirstImage}" Grid.Row="0" Visibility="{Binding FirstImageVisibility}" MaxHeight="100" MaxWidth="400" Stretch="UniformToFill" HorizontalAlignment="Left"/>
+            <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" FontSize="24" FontWeight="Bold" MaxHeight="40" Margin="10,0,10,0" TextWrapping="Wrap" Grid.Row="1" Foreground="White"/>
+            <TextBlock Text="{Binding OnlyTextContent}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap" Margin="10,0,10,10" Grid.Row="2" Foreground="White" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="TwitterDetailedItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="400" Height="90" Background="{StaticResource AppTransparentColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource AppTransparentColor}" Width="80" Height="80" Margin="5">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill"/>
+            </Border>
+            <!--<Border Background="{StaticResource AppDarkColor}" Height="90" Width="90" Grid.Column="0">
+                <ContentControl Template="{StaticResource DateBlockTemplate}"/>
+            </Border>-->
+            <StackPanel Grid.Column="1" Margin="10,0,10,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" MaxHeight="60" />
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" />
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="TwitterItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="400" Height="90" Background="{StaticResource AppTransparentColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource AppTransparentColor}" Width="80" Height="80" Margin="5">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill"/>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="5,0,20,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" MaxHeight="60"/>
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" />
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SmallPVideoItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="240" Height="180">
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Image Source="{Binding Path=SQImage}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Margin="0, -32,0,0"/>
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Foreground="WHite" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomLItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="440" Height="485" >
+            <Border Background="{StaticResource AppTransparentColor}">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}" Height="65">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" TextTrimming="WordEllipsis" Margin="10,0,10,0"/>
+                <TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap" MaxHeight="60" Margin="10,0,10,5"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomSItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="245" Height="180" >
+            <Border Background="{StaticResource AppTransparentColor}">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}" Height="90">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}"  Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" Margin="10,0,10,0" TextTrimming="WordEllipsis"/>
+                <TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}"  Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap" MaxHeight="60" Margin="10,0,10,5"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FlickrImageItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="245" Height="180" >
+            <Border Background="{StaticResource AppTransparentColor}">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}" Height="90">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,0" TextTrimming="WordEllipsis"/>
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BlogFeedItemTemplate">
+        <Grid Background="{StaticResource AppTransparentColor}" Height="90" Width="400">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" Margin="10,5,10,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" MaxHeight="40" FontWeight="Bold" TextWrapping="Wrap"/>
+                <TextBlock MaxHeight="40" Margin="0,5,0,0" Foreground="White" TextWrapping="Wrap">
+                    <!--<Run Text="> "/>-->
+                    <Run Text="{Binding FirstItemTitle}" FontFamily="{StaticResource AppFontFamily}"/>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <Style x:Key="SettingBkButtonStyle" TargetType="Button">
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="Margin" Value="20,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Back"/>
+        <Setter Property="AutomationProperties.ItemType" Value="Navigation Button"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid" Width="36" Height="36" Margin="-3,0,7,33">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver"/>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation
+											Storyboard.TargetName="ArrowGlyph"
+											Storyboard.TargetProperty="Opacity"
+											To="1"
+											Duration="0"/>
+                                        <DoubleAnimation
+											Storyboard.TargetName="NormalGlyph"
+											Storyboard.TargetProperty="Opacity"
+											To="0"
+											Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation
+											Storyboard.TargetName="FocusVisualWhite"
+											Storyboard.TargetProperty="Opacity"
+											To="1"
+											Duration="0"/>
+                                        <DoubleAnimation
+											Storyboard.TargetName="FocusVisualBlack"
+											Storyboard.TargetProperty="Opacity"
+											To="1"
+											Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Margin="-1,-1,0,0">
+                            <TextBlock x:Name="BackgroundGlyph" Text="&#xE0D4;" Foreground="Transparent"/>
+                            <TextBlock x:Name="NormalGlyph" Text="{StaticResource BackButtonSnappedGlyph}" Foreground="White"/>
+                            <TextBlock x:Name="ArrowGlyph" Text="&#xE0C4;" Foreground="White" Opacity="0"/>
+                        </Grid>
+                        <Rectangle
+							x:Name="FocusVisualWhite"
+							IsHitTestVisible="False"
+							Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}"
+							StrokeEndLineCap="Square"
+							StrokeDashArray="1,1"
+							Opacity="0"
+							StrokeDashOffset="1.5"/>
+                        <Rectangle
+							x:Name="FocusVisualBlack"
+							IsHitTestVisible="False"
+							Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}"
+							StrokeEndLineCap="Square"
+							StrokeDashArray="1,1"
+							Opacity="0"
+							StrokeDashOffset="0.5"/>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="VideoFlipViewStyle" TargetType="FlipView"></Style>
+
+    <!-- Snapped versions -->
+
+    <DataTemplate x:Key="SnappedBlogFeedTemplate">
+        <Grid Background="{StaticResource AppTransparentColor}" Height="80" Width="280">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+                <TextBlock Text="{Binding FirstItemTitle}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource ItemTextStyle}" MaxHeight="20"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SnappedItemVideoTemplate">
+        <Grid Background="{StaticResource AppTransparentColor}" Height="80" Width="280">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource AppTransparentColor}" Width="60" Height="60" Margin="10,0,0,0">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill"/>
+            </Border>
+            <Ellipse VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30" Margin="5,-0,0,0" StrokeThickness="2" RenderTransformOrigin="0.5, 0.5">
+                <Ellipse.Fill>
+                    <SolidColorBrush Color="White" Opacity="0"/>
+                </Ellipse.Fill>
+                <Ellipse.Stroke>
+                    <SolidColorBrush Color="White" Opacity="1"/>
+                </Ellipse.Stroke>
+            </Ellipse>
+            <TextBlock Text="&#xE102;" FontFamily="Segoe UI Symbol" FontSize="17.5" Opacity="1" Margin="5,-0,0,0"  HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+
+            <StackPanel Grid.Column="1" Margin="10,0,10,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SnappedTwitterItemTemplate">
+        <Grid Background="{StaticResource AppTransparentColor}" Height="80" Width="280">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource AppTransparentColor}" Width="60" Height="60" Margin="10,0,0,0">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill"/>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="10,0,10,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SnappedLongTwitterItemTemplate">
+        <Grid Background="{StaticResource AppTransparentColor}" MinHeight="80" MaxHeight="220" Width="280">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource AppTransparentColor}" Width="60" Height="60" Margin="10,10,0,0" VerticalAlignment="Top">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" VerticalAlignment="Top"/>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="10,0,10,10">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource ItemTextStyle}" MaxHeight="160"/>
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SnappedItemBlogPostTemplate">
+        <Grid Width="280" Height="80" Background="{StaticResource AppTransparentColor}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource AppDarkColor}" Height="80" Width="80" Grid.Column="0" >
+                <ContentControl Template="{StaticResource DateBlockTemplateSnapped}"/>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="10,0,10,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource ItemTextStyle}" MaxHeight="40" />
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SnappedCFItemTemplate">
+        <Grid Background="{StaticResource AppTransparentColor}" Height="80" Width="280">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource AppTransparentColor}" Width="60" Height="60" Margin="10,0,0,0">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill"/>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+                <TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SnappedFlickrImageItemTemplate">
+        <Grid Background="{StaticResource AppTransparentColor}" Height="80" Width="280">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource AppTransparentColor}" Width="60" Height="60" Margin="10,0,0,0">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill"/>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+                <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <!--<DataTemplate x:Key="FlipviewSnappedVideoTemplate">
+        <UserControl>
+            <Grid Background="Black" Margin="12,0,12,47">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="324"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="1" Margin="12,12,12,12">
+                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" FontSize="15"/>
+                    <TextBlock Text="{Binding Publisher}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,12,0,0"/>
+                </StackPanel>
+            </Grid>
+        </UserControl>
+    </DataTemplate>-->
+
+    <DataTemplate x:Key="FlipviewSnappedImageTemplate">
+            <UserControl>
+                <Grid Background="Black" Margin="18,140,18,47" VerticalAlignment="Stretch">
+                    <Image Source="{Binding Thumbnail}" Grid.Column="0" Stretch="Uniform" VerticalAlignment="Top" Margin="0,0,0,12"/>
+                    <StackPanel Grid.Row="1" Margin="5,12,5,5" VerticalAlignment="Bottom">
+                        <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="15"/>
+                        <TextBlock Text="{Binding PubDate}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                    </StackPanel>
+                <Border Style="{StaticResource ImageBorder}" Margin="-8">
+                </Border>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <!-- 1024x768 versions -->
+
+    <DataTemplate x:Key="FlipviewVideoSmallTemplate">
+        <UserControl>
+            <Grid Background="{StaticResource AppTransparentColor}" Margin="117,0,67,47">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="592"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Margin="12,12,12,12">
+                    <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="24"/>
+                    <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="18" Margin="0,12,0,0"/>
+                </StackPanel>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FlipviewImageSmallTemplate">
+        <UserControl>
+            <Grid Background="{StaticResource AppTransparentColor}" Margin="117,0,67,47">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="592"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Thumbnail}" Grid.Column="0" Stretch="Uniform" Margin="12"/>
+
+                <StackPanel VerticalAlignment="Top" Grid.Column="1" Orientation="Vertical" Margin="12">
+                    <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="24"/>
+                    <TextBlock Text="{Binding PubDate}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <!-- 1920x1080 versions -->
+
+    <DataTemplate x:Key="FlipviewVideoLargeTemplate">
+        <UserControl>
+            <Grid Background="{StaticResource AppTransparentColor}" Margin="117,0,117,47">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="912"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Margin="12,12,12,12">
+                    <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="24"/>
+                    <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="18" Margin="0,12,0,0"/>
+                </StackPanel>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FlipviewImageLargeTemplate">
+        <UserControl>
+            <Grid Background="{StaticResource AppTransparentColor}" Margin="117,0,117,47">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="912"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Thumbnail}" Grid.Column="0" Stretch="Uniform" Margin="12"/>
+
+                <StackPanel VerticalAlignment="Top" Grid.Column="1" Orientation="Vertical" Margin="12">
+                    <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="24"/>
+                    <TextBlock Text="{Binding PubDate}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <!-- 2560x1440 versions -->
+
+    <DataTemplate x:Key="FlipviewVideoXLargeTemplate">
+        <UserControl>
+            <Grid Background="{StaticResource AppTransparentColor}" Margin="117,0,117,47">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1212"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Margin="12,12,12,12">
+                    <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="24"/>
+                    <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="18" Margin="0,12,0,0"/>
+                </StackPanel>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FlipviewImageXLargeTemplate">
+        <UserControl>
+            <Grid Background="{StaticResource AppTransparentColor}" Margin="117,0,117,47">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1212"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Thumbnail}" Grid.Column="0" Stretch="Uniform" Margin="12"/>
+
+                <StackPanel VerticalAlignment="Top" Grid.Column="1" Orientation="Vertical" Margin="12">
+                    <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap" FontSize="24"/>
+                    <TextBlock Text="{Binding PubDate}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Publisher}" FontFamily="{StaticResource AppFontFamily}" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Grid>
+        </UserControl>
+    </DataTemplate>
+
+    <tiles:VariableTiles x:Key="MyTemplateSelectorObj"
+                             BigVideoTemplate="{StaticResource BigVideoItemTemplate}"
+                             SmallPVideoTemplate="{StaticResource SmallPVideoItemTemplate}"
+                             SmallLVideoTemplate="{StaticResource SmallLVideoItemTemplate}"
+                             BlogPostTemplate="{StaticResource BlogPostItemTemplate}"
+                             TwitterTemplate="{StaticResource TwitterItemTemplate}"   
+                             CustomItemLargeTemplate="{StaticResource CustomLItemTemplate}"
+                             CustomItemSmallTemplate="{StaticResource CustomSItemTemplate}"
+                             FlickrImageTemplate="{StaticResource FlickrImageItemTemplate}"
+                             BlogFeedTemplate="{StaticResource BlogFeedItemTemplate}"    
+                             SmallSpotlightTileItemTemplate="{StaticResource SmallSpotlightTileItemTemplate}"
+                             BigSpotlightTileItemTemplate="{StaticResource BigSpotlightTileItemTemplate}"
+                             SmallSpotlightPlayTileItemTemplate="{StaticResource SmallSpotlightPlayTileItemTemplate}"
+                             BigSpotlightPlayTileItemTemplate="{StaticResource BigSpotlightPlayTileItemTemplate}"
+                         />
+
+    <tiles:SnappedTiles x:Key="MySnappedTemplateSelectorObj"
+                             SnappedVideoTemplate="{StaticResource SnappedItemVideoTemplate}"
+                             SnappedBlogPostTemplate="{StaticResource SnappedItemBlogPostTemplate}"
+                             SnappedTwitterTemplate="{StaticResource SnappedTwitterItemTemplate}"   
+                             SnappedCFTemplate="{StaticResource SnappedCFItemTemplate}"
+                             SnappedFlickrImageTemplate="{StaticResource SnappedFlickrImageItemTemplate}"
+                            SnappedBlogFeedTemplate="{StaticResource SnappedBlogFeedTemplate}"     
+                        />
+
+    <Style x:Key="AppBackButtonStyle" TargetType="Button">
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="Width" Value="96"/>
+        <Setter Property="Height" Value="96"/>
+        <Setter Property="Margin" Value="36,0,36,36"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="84"/>
+        <Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Back"/>
+        <Setter Property="AutomationProperties.ItemType" Value="Navigation Button"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackButtonPointerOverBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppDarkColor}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppDarkColor}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="ArrowGlyph"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="NormalGlyph"
+    										Storyboard.TargetProperty="Opacity"
+    										To="0"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualWhite"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualBlack"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Margin="-1,-16,0,0">
+                            <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="{StaticResource BackButtonBackgroundThemeBrush}"/>
+                            <TextBlock x:Name="NormalGlyph" Text="{StaticResource BackButtonGlyph}" Foreground="{StaticResource AppDarkColor}"/>
+                            <TextBlock x:Name="ArrowGlyph" Text="&#xE0A6;" Foreground="{StaticResource BackButtonPressedForegroundThemeBrush}" Opacity="0"/>
+                        </Grid>
+                        <Rectangle
+    						x:Name="FocusVisualWhite"
+    						IsHitTestVisible="False"
+    						Stroke="{StaticResource AppDarkColor}"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="1.5"/>
+                        <Rectangle
+    						x:Name="FocusVisualBlack"
+    						IsHitTestVisible="False"
+    						Stroke="Black"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="0.5"/>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WhiteInfoButtonStyle" TargetType="Button">
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="Width" Value="48"/>
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="Margin" Value="36,0,36,36"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="56"/>
+        <Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Back"/>
+        <Setter Property="AutomationProperties.ItemType" Value="Navigation Button"/>
+        <Setter Property="Content" Value="&#xE14C;"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackButtonPointerOverBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyphBack" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyphFront" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="NormalGlyphFront"
+    										Storyboard.TargetProperty="Opacity"
+    										To="0"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualWhite"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualBlack"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Margin="-1,8,0,0">
+                            <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="{StaticResource BackButtonBackgroundThemeBrush}" Margin="-12,-26,0,0"/>
+                            <TextBlock x:Name="NormalGlyphBack" Text="&#xE17E;" Foreground="White" FontSize="20" FontWeight="Normal"/>
+                            <!--<TextBlock x:Name="NormalGlyphFront" Text="&#xE14C;" Foreground="White" FontSize="20" FontWeight="Bold"/>-->
+                            <TextBlock x:Name="NormalGlyphFront" Text="{TemplateBinding Content}" Foreground="White" FontSize="20" FontWeight="Bold"/>
+                            <TextBlock x:Name="ArrowGlyph" Text="&#xE0A6;" Foreground="White" Opacity="0" Margin="14,-8,0,0"/>
+                        </Grid>
+                        <Rectangle
+    						x:Name="FocusVisualWhite"
+    						IsHitTestVisible="False"
+    						Stroke="White"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="1.5" Margin="-12,-3,12,0"/>
+                        <Rectangle
+    						x:Name="FocusVisualBlack"
+    						IsHitTestVisible="False"
+    						Stroke="Black"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="0.5" Margin="-12,-3,12,0"/>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SaveButtonStyle" TargetType="Button">
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="Width" Value="48"/>
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="Margin" Value="36,0,36,36"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="56"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackButtonPointerOverBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="ArrowGlyph"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="NormalGlyph"
+    										Storyboard.TargetProperty="Opacity"
+    										To="0"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualWhite"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualBlack"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Margin="1,0,0,-16">
+                            <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="{StaticResource BackButtonBackgroundThemeBrush}"/>
+                            <TextBlock x:Name="NormalGlyph" Text="&#xE0A7;" Foreground="White"/>
+                            <TextBlock x:Name="NormalGlyphFront" Text="&#xE105;" FontSize="22" Foreground="White" Margin="10,26,0,0"/>
+                            <TextBlock x:Name="ArrowGlyph" Text="&#xE105;" FontSize="22" Foreground="Black" Opacity="0" Margin="10,26,0,0"/>
+                        </Grid>
+                        <Rectangle
+    						x:Name="FocusVisualWhite"
+    						IsHitTestVisible="False"
+    						Stroke="White"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="1.5"/>
+                        <Rectangle
+    						x:Name="FocusVisualBlack"
+    						IsHitTestVisible="False"
+    						Stroke="Black"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="0.5"/>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SaveButtonStyleBlack" TargetType="Button">
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="Width" Value="48"/>
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="Margin" Value="36,0,36,36"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="56"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackButtonPointerOverBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Black"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Black"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="ArrowGlyph"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="NormalGlyph"
+    										Storyboard.TargetProperty="Opacity"
+    										To="0"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualWhite"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualBlack"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Margin="1,0,0,-16">
+                            <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="{StaticResource BackButtonBackgroundThemeBrush}"/>
+                            <TextBlock x:Name="NormalGlyph" Text="&#xE0A7;" Foreground="Black"/>
+                            <TextBlock x:Name="NormalGlyphFront" Text="&#xE105;" FontSize="22" Foreground="Black" Margin="10,26,0,0"/>
+                            <TextBlock x:Name="ArrowGlyph" Text="&#xE105;" FontSize="22" Foreground="White" Opacity="0" Margin="10,26,0,0"/>
+                        </Grid>
+                        <Rectangle
+    						x:Name="FocusVisualWhite"
+    						IsHitTestVisible="False"
+    						Stroke="White"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="1.5"/>
+                        <Rectangle
+    						x:Name="FocusVisualBlack"
+    						IsHitTestVisible="False"
+    						Stroke="Black"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="0.5"/>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SetAsLockscreenButtonStyle" TargetType="Button">
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="Width" Value="48"/>
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="Margin" Value="36,0,36,36"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="56"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackButtonPointerOverBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="ArrowGlyph"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="NormalGlyph"
+    										Storyboard.TargetProperty="Opacity"
+    										To="0"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualWhite"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                        <DoubleAnimation
+    										Storyboard.TargetName="FocusVisualBlack"
+    										Storyboard.TargetProperty="Opacity"
+    										To="1"
+    										Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Margin="1,0,0,-16">
+                            <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="{StaticResource BackButtonBackgroundThemeBrush}"/>
+                            <TextBlock x:Name="NormalGlyph" Text="&#xE0A7;" Foreground="White"/>
+                            <TextBlock x:Name="NormalGlyphFront" Text="&#xE17C;" FontSize="22" Foreground="White" Margin="10,26,0,0"/>
+                            <TextBlock x:Name="ArrowGlyph" Text="&#xE17C;" FontSize="22" Foreground="Black" Opacity="0" Margin="10,26,0,0"/>
+                        </Grid>
+                        <Rectangle
+    						x:Name="FocusVisualWhite"
+    						IsHitTestVisible="False"
+    						Stroke="White"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="1.5"/>
+                        <Rectangle
+    						x:Name="FocusVisualBlack"
+    						IsHitTestVisible="False"
+    						Stroke="Black"
+    						StrokeEndLineCap="Square"
+    						StrokeDashArray="1,1"
+    						Opacity="0"
+    						StrokeDashOffset="0.5"/>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SnappedBackButtonStyle" TargetType="Button">
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="Margin" Value="20,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="26.66667"/>
+        <Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Back"/>
+        <Setter Property="AutomationProperties.ItemType" Value="Navigation Button"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid" Width="36" Height="36" Margin="-3,0,7,33">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackButtonPointerOverBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppDarkColor}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AppDarkColor}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="ArrowGlyph"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"
+                                            Duration="0"/>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="NormalGlyph"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="0"
+                                            Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FocusVisualWhite"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"
+                                            Duration="0"/>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FocusVisualBlack"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"
+                                            Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Margin="-1,-1,0,0">
+                            <TextBlock x:Name="BackgroundGlyph" Text="&#xE0D4;" Foreground="{StaticResource BackButtonBackgroundThemeBrush}"/>
+                            <TextBlock x:Name="NormalGlyph" Text="{StaticResource BackButtonSnappedGlyph}" Foreground="{StaticResource AppDarkColor}"/>
+                            <TextBlock x:Name="ArrowGlyph" Text="&#xE0C4;" Foreground="{StaticResource BackButtonPressedForegroundThemeBrush}" Opacity="0"/>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

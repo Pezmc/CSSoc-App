@@ -1,0 +1,15 @@
+﻿<Application
+    x:Class="CSSoc.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CSSoc"
+    xmlns:localData="using:CSSoc.Data">
+
+    <Application.Resources>
+    <!-- Application-specific resources -->
+
+        <x:String x:Key="AppName">CSSoc</x:String>
+        <ResourceDictionary x:Key="CommonStyles" Source="CommonAppStyles.xaml" />
+
+    </Application.Resources>
+</Application>
