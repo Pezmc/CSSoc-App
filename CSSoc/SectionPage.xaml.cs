@@ -71,7 +71,7 @@ namespace CSSoc
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var fbevent = await FacebookDataSource.GetEventAsync((String)e.NavigationParameter);
             this.DefaultViewModel["Group"] = fbevent;
-            this.DefaultViewModel["Items"] = fbevent.Items;
+           // this.DefaultViewModel["Items"] = fbevent.Items;
         }
 
         /// <summary>

@@ -1,0 +1,22 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- style for original look -->
+    <Style TargetType="GridViewItem" x:Key="gridLook"/>
+
+    <Style TargetType="ListViewItem" x:Key="snapListLook"/>
+
+    <Style TargetType="ListViewItem" x:Key="listLook"/>
+
+    <Style x:Key="TwitterBorderLook" TargetType="Border"/>
+
+    <Style x:Key="VideoTopBorder" TargetType="Border"/>
+
+    <Style x:Key="VideoBottomBorder" TargetType="Border"/>
+
+    <Style x:Key="VideoFullBorder" TargetType="Border"/>
+
+    <Style x:Key="ImageBorder" TargetType="Border"/>
+
+</ResourceDictionary>

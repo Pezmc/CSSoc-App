@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SocialMediaDashboard.W8.Common"
+    xmlns:local="using:CSSoc.Common"
     xmlns:tiles="using:SocialMediaDashboard.W8.VariableTemplate"
     >
 
@@ -15,7 +15,7 @@
 
     <Style x:Key="RTLink" TargetType="HyperlinkButton">
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontSize" Value="16" />
         <Setter Property="Margin" Value="-15,-13, -5, -13" />
     </Style>
 
@@ -45,26 +45,17 @@
             <TextBlock TextTrimming="WordEllipsis" TextWrapping="NoWrap" 
                    Width="Auto" Height="Auto" Margin="8,0,4,0" 
                    FontSize="32" FontWeight="Bold">
-                <TextBlock.Text>
-                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="month"  />
-                </TextBlock.Text>
             </TextBlock>
 
             <TextBlock TextTrimming="WordEllipsis" TextWrapping="Wrap" 
                    Width="40" Height="Auto" Margin="4,0,0,0" 
                    FontSize="34" FontWeight="Bold" Canvas.Top="36">
-                <TextBlock.Text>
-                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="day"  />
-                </TextBlock.Text>
             </TextBlock>
             <Line Stroke="White" StrokeThickness="2" X1="54" Y1="46" X2="54" Y2="80" />
 
             <TextBlock TextWrapping="Wrap" 
             Width="20" Height="Auto" 
             FontSize="{StaticResource ControlContentThemeFontSize}" Canvas.Top="42" Canvas.Left="60">
-                <TextBlock.Text>
-                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="year"  />
-                </TextBlock.Text>
             </TextBlock>
         </Canvas>
     </ControlTemplate>
@@ -74,26 +65,17 @@
             <TextBlock TextTrimming="WordEllipsis" TextWrapping="NoWrap" 
                    Width="Auto" Height="Auto" Margin="4,0,2,0" 
                    FontSize="16" FontWeight="Bold">
-                <TextBlock.Text>
-                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="month"  />
-                </TextBlock.Text>
             </TextBlock>
 
             <TextBlock TextTrimming="WordEllipsis" TextWrapping="Wrap" 
                    Width="30" Height="Auto" Margin="2,0,0,0" 
                    FontSize="24" FontWeight="Bold" Canvas.Top="24">
-                <TextBlock.Text>
-                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="day"  />
-                </TextBlock.Text>
             </TextBlock>
             <Line Stroke="White" StrokeThickness="2" X1="44" Y1="36" X2="44" Y2="70" />
 
             <TextBlock TextWrapping="Wrap" 
             Width="20" Height="Auto" 
             FontSize="{StaticResource ControlContentThemeFontSize}" Canvas.Top="32" Canvas.Left="50">
-                <TextBlock.Text>
-                    <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="year"  />
-                </TextBlock.Text>
             </TextBlock>
         </Canvas>
     </ControlTemplate>
@@ -189,19 +171,10 @@
             <TextBlock Text="{Binding Title}" Grid.Row="0" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" Margin="12,0" TextWrapping="Wrap"/>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="12,12,12,0">
                 <TextBlock Foreground="White" FontWeight="Light" Margin="0,0,4,0">
-                    <TextBlock.Text>
-                        <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="day"  />
-                    </TextBlock.Text>
                 </TextBlock>
                 <TextBlock Foreground="White" FontWeight="Light" Margin="0,0,4,0">
-                    <TextBlock.Text>
-                        <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="month"  />
-                    </TextBlock.Text>
                 </TextBlock>
                 <TextBlock Foreground="White" FontWeight="Light">
-                    <TextBlock.Text>
-                        <Binding Path="PubDate" Converter="{StaticResource dateConverter}" ConverterParameter="year"  />
-                    </TextBlock.Text>
                 </TextBlock>
             </StackPanel>
         </Grid>
@@ -309,6 +282,54 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate x:Key="StaffLItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="440" Height="485" >
+            <Border Background="{StaticResource AppTransparentColor}">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}" Height="65">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" TextTrimming="WordEllipsis" Margin="10,0,10,0"/>
+                <TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap" MaxHeight="60" Margin="10,0,10,5"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="StaffSItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="245" Height="230" >
+            <Border Background="{StaticResource AppTransparentColor}">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}" Height="30">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}"  Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" Margin="10,0,10,0" TextTrimming="WordEllipsis"/>
+                <!--<TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}"  Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap" MaxHeight="60" Margin="10,0,10,5"/>-->
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ResearchLItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="440" Height="485" >
+            <Border Background="{StaticResource AppTransparentColor}">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}" Height="65">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" TextTrimming="WordEllipsis" Margin="10,0,10,0"/>
+                <TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}" Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap" MaxHeight="60" Margin="10,0,10,5"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ResearchSItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="245" Height="230" >
+            <Border Background="{StaticResource AppTransparentColor}">
+                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource AppTransparentColor}" Height="45">
+                <TextBlock Text="{Binding Title}" FontFamily="{StaticResource AppFontFamily}"  Foreground="White" FontWeight="Bold" Style="{StaticResource TitleTextStyle}" Margin="10,0,10,0" TextTrimming="WordEllipsis"/>
+                <!--<TextBlock Text="{Binding Description}" FontFamily="{StaticResource AppFontFamily}"  Foreground="White" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap" MaxHeight="60" Margin="10,0,10,5"/>-->
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate x:Key="FlickrImageItemTemplate">
         <Grid HorizontalAlignment="Left" Width="245" Height="180" >
             <Border Background="{StaticResource AppTransparentColor}">
@@ -343,7 +364,7 @@
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
         <Setter Property="FontWeight" Value="Normal"/>
-        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="FontSize" Value="26.66667"/>
         <Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>
         <Setter Property="AutomationProperties.Name" Value="Back"/>
         <Setter Property="AutomationProperties.ItemType" Value="Navigation Button"/>
@@ -686,31 +707,6 @@
             </Grid>
         </UserControl>
     </DataTemplate>
-
-    <tiles:VariableTiles x:Key="MyTemplateSelectorObj"
-                             BigVideoTemplate="{StaticResource BigVideoItemTemplate}"
-                             SmallPVideoTemplate="{StaticResource SmallPVideoItemTemplate}"
-                             SmallLVideoTemplate="{StaticResource SmallLVideoItemTemplate}"
-                             BlogPostTemplate="{StaticResource BlogPostItemTemplate}"
-                             TwitterTemplate="{StaticResource TwitterItemTemplate}"   
-                             CustomItemLargeTemplate="{StaticResource CustomLItemTemplate}"
-                             CustomItemSmallTemplate="{StaticResource CustomSItemTemplate}"
-                             FlickrImageTemplate="{StaticResource FlickrImageItemTemplate}"
-                             BlogFeedTemplate="{StaticResource BlogFeedItemTemplate}"    
-                             SmallSpotlightTileItemTemplate="{StaticResource SmallSpotlightTileItemTemplate}"
-                             BigSpotlightTileItemTemplate="{StaticResource BigSpotlightTileItemTemplate}"
-                             SmallSpotlightPlayTileItemTemplate="{StaticResource SmallSpotlightPlayTileItemTemplate}"
-                             BigSpotlightPlayTileItemTemplate="{StaticResource BigSpotlightPlayTileItemTemplate}"
-                         />
-
-    <tiles:SnappedTiles x:Key="MySnappedTemplateSelectorObj"
-                             SnappedVideoTemplate="{StaticResource SnappedItemVideoTemplate}"
-                             SnappedBlogPostTemplate="{StaticResource SnappedItemBlogPostTemplate}"
-                             SnappedTwitterTemplate="{StaticResource SnappedTwitterItemTemplate}"   
-                             SnappedCFTemplate="{StaticResource SnappedCFItemTemplate}"
-                             SnappedFlickrImageTemplate="{StaticResource SnappedFlickrImageItemTemplate}"
-                            SnappedBlogFeedTemplate="{StaticResource SnappedBlogFeedTemplate}"     
-                        />
 
     <Style x:Key="AppBackButtonStyle" TargetType="Button">
         <Setter Property="MinWidth" Value="0"/>

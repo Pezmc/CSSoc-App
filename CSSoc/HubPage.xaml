@@ -63,13 +63,13 @@
     <!--
     This grid acts as a root panel for the page.
   -->
-    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="#FFFFFF">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Hub SectionHeaderClick="Hub_SectionHeaderClick" Padding="40,40,0,0">
+        <Hub Padding="40,40,0,0">
             <Hub.Header>
                 <!-- Back button and page title -->
                 <Grid Margin="0,20,0,0">
@@ -79,19 +79,20 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Height="40">
                         <AppBarButton x:Name="backButton" Icon="Back" Margin="-30,-14,0,0"
+                              
                               Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}" 
                               Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource Mode=Self}}"
                               AutomationProperties.Name="Back"
                               AutomationProperties.AutomationId="BackButton"
                               AutomationProperties.ItemType="Navigation Button"/>
                     </StackPanel>
-                    <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                    <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" FontFamily="{StaticResource AppFontFamily}" Style="{StaticResource PageHeaderTextStyle}" Foreground="{StaticResource AppDarkColor}" Grid.Column="1" 
                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Top"/>
                 </Grid>
             </Hub.Header>
             <HubSection Width="580" Padding="120,30,40,44"  VerticalAlignment="Top" DataContext="{Binding NextEvent}">
                 <HubSection.Header>
-                    <TextBlock x:Uid="Section1Header" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Text="Next Event"/>
+                    <TextBlock x:Uid="Section1Header" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Text="Next Event" FontFamily="{StaticResource AppFontFamily}" Foreground="{StaticResource AppDarkColor}" />
                 </HubSection.Header>
                 <DataTemplate>
                     <Grid Margin="0,10,0,0">
@@ -112,7 +113,7 @@
             </HubSection>
             <HubSection Padding="40,30,40,44" DataContext="{Binding Path=[0], Source={StaticResource groupedItemsViewSource}}" IsHeaderInteractive="True" >
                 <HubSection.Header>
-                    <TextBlock x:Uid="UpcomingEventsHeader" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Text="Upcoming events"/>
+                    <TextBlock x:Uid="UpcomingEventsHeader" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Foreground="{StaticResource AppDarkColor}" Text="Upcoming events" />
                 </HubSection.Header>
                 <DataTemplate>
                     <ListView
