@@ -20,6 +20,23 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace CSSoc.Data
 {
+
+    public class FacebookEventGroup
+    {
+
+        public FacebookEventGroup(string id)
+        {
+
+            this.uId = id;
+            this.Items = new ObservableCollection<FacebookEvent>();
+
+        }
+
+        public string uId { get; private set; }
+
+        public ObservableCollection<FacebookEvent> Items { get; private set; }
+    }
+
     public class FacebookPage
     {
         public string Id { get; private set; }
@@ -85,6 +102,13 @@ namespace CSSoc.Data
     {
         private static FacebookDataSource _dataSource = null;
 
+        private ObservableCollection<FacebookEventGroup> _group = new ObservableCollection<FacebookEventGroup>();
+
+        public ObservableCollection<FacebookEventGroup> Group
+        {
+            get { return this._group; }
+        }
+
         static FacebookDataSource()
         {
             _dataSource = new FacebookDataSource();
@@ -96,6 +120,14 @@ namespace CSSoc.Data
 
             return _dataSource.Events;
         }
+
+        public static async Task<IEnumerable<FacebookEventGroup>> GetGroupsAsync()
+        {
+            await _dataSource.GetFacebookDataAsync();
+
+            return _dataSource.Group;
+        }
+
 
         private FacebookPage _page = null;
         public ObservableCollection<FacebookEvent> Events
@@ -148,6 +180,13 @@ namespace CSSoc.Data
             dynamic cssocManData = await _fb.GetTaskAsync("cssoc.man", parameters);
 
             this._page = new FacebookPage(cssocManData);
+
+            FacebookEventGroup group = new FacebookEventGroup("1");
+            foreach (dynamic eventInfo in cssocManData.events.data)
+            {
+                group.Items.Add(new FacebookEvent(eventInfo));
+            }
+            this.Group.Add(group);
         }
     }
 }

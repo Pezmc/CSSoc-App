@@ -24,6 +24,8 @@ namespace CSSoc
     /// <summary>
     /// A page that displays a grouped collection of items.
     /// </summary>
+    /// 
+
     public sealed partial class HubPage : Page
     {
         private NavigationHelper navigationHelper;
@@ -71,7 +73,11 @@ namespace CSSoc
         
             int upcomingEventCount = (events.Count()-1);
 
-            //this.DefaultViewModel["UpcomingEvents"] = events.Take(upcomingEventCount);
+            IEnumerable<FacebookEventGroup> group = await FacebookDataSource.GetGroupsAsync();
+
+            var groupSelect = group.Take(1);
+
+            this.DefaultViewModel["UpcomingEvents"] = groupSelect.Take(1);
 
             // The last item in the list if the first event
             var testObj = events.Skip(upcomingEventCount).Take(1);
@@ -117,7 +123,7 @@ namespace CSSoc
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
+            var itemId = ((FacebookEvent)e.ClickedItem).Id;
             this.Frame.Navigate(typeof(ItemPage), itemId);
         }
         #region NavigationHelper registration
