@@ -186,6 +186,7 @@ namespace CSSoc.Data
             {
                 group.Items.Add(new FacebookEvent(eventInfo));
             }
+            group.Items.Remove(group.Items.Last());
             this.Group.Add(group);
         }
     }
