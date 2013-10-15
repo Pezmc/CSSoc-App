@@ -75,6 +75,8 @@ namespace CSSoc
 
             IEnumerable<FacebookEventGroup> group = await FacebookDataSource.GetGroupsAsync();
 
+            IEnumerable<FacebookAlbum> albums = await FacebookDataSource.GetAlbumAsync();
+
             var groupSelect = group.Take(1);
 
             this.DefaultViewModel["UpcomingEvents"] = groupSelect.Take(1);
@@ -83,6 +85,11 @@ namespace CSSoc
             var testObj = events.Skip(upcomingEventCount).Take(1);
             var test = testObj.ElementAt(0);
             this.DefaultViewModel["NextEvent"] = test;
+
+            var albumsObj = albums;
+
+            this.DefaultViewModel["Albums"] = albumsObj.ElementAt(0);
+
             /*dynamic res = await _fb.GetTaskAsync("oauth/access_token", new
             {
                 client_id = "378133422317406",
@@ -123,8 +130,18 @@ namespace CSSoc
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var itemId = ((FacebookEvent)e.ClickedItem).Id;
-            this.Frame.Navigate(typeof(ItemPage), itemId);
+            var typeStuff = e.ClickedItem.GetType();
+            if (typeStuff.Name == "FacebookEvent")
+            {
+                var itemId = ((FacebookEvent)e.ClickedItem).Id;
+                this.Frame.Navigate(typeof(ItemPage), itemId);
+            }
+            else if (typeStuff.Name == "FacebookImage")
+            {
+                var itemId = ((FacebookImage)e.ClickedItem).Id;
+                this.Frame.Navigate(typeof(ItemPage), itemId);
+            }
+            
         }
         #region NavigationHelper registration
 

@@ -33,7 +33,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Height="150">
-                    <Image Source="{Binding ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+                    <Image Source="{Binding Source}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
                 </Border>
                 <StackPanel Grid.Row="1" Margin="0,10,0,0">
                     <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="NoWrap"/>
@@ -78,10 +78,10 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Height="40">
-                        <AppBarButton x:Name="backButton" Icon="Back" Margin="-30,-14,0,0"
+                        <AppBarButton x:Name="backButton" Icon="Back" Margin="-30,-14,0,0" Foreground="{StaticResource AppDarkColor}"
                               
                               Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}" 
-                              Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource Mode=Self}}"
+                              Visibility="Visible"
                               AutomationProperties.Name="Back"
                               AutomationProperties.AutomationId="BackButton"
                               AutomationProperties.ItemType="Navigation Button"/>
@@ -92,7 +92,7 @@
             </Hub.Header>
             <HubSection Width="580" Padding="120,30,40,44"  VerticalAlignment="Top" DataContext="{Binding NextEvent}">
                 <HubSection.Header>
-                    <TextBlock x:Uid="Section1Header" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Text="Next Event" FontFamily="{StaticResource AppFontFamily}" Foreground="{StaticResource AppDarkColor}" />
+                    <TextBlock x:Uid="NextEventHeader" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Text="Next Event" FontFamily="{StaticResource AppFontFamily}" Foreground="{StaticResource AppDarkColor}" />
                 </HubSection.Header>
                 <DataTemplate>
                     <Grid Margin="0,10,0,0">
@@ -113,7 +113,7 @@
                     </Grid>
                 </DataTemplate>
             </HubSection>
-            <HubSection Padding="40,30,40,44" DataContext="{Binding Path=[0], Source={StaticResource groupedItemsViewSource}}" IsHeaderInteractive="True" >
+            <!--<HubSection Padding="40,30,40,44" DataContext="{Binding Path=[0], Source={StaticResource groupedItemsViewSource}}" IsHeaderInteractive="True" >
                 <HubSection.Header>
                     <TextBlock x:Uid="UpcomingEventsHeader" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Foreground="{StaticResource AppDarkColor}" Text="Upcoming events" />
                 </HubSection.Header>
@@ -137,42 +137,17 @@
                         </ListView.ItemsPanel>
                     </ListView>
                 </DataTemplate>
-            </HubSection>
-            <HubSection Padding="7,30,40,44">
+            </HubSection>-->
+
+            <!--<HubSection>
+                <HubSection.Header Padding="40,30,150,44">
+                    <TextBlock x:Uid="QRHeader" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Foreground="{StaticResource AppDarkColor}" Text="QR" />
+                </HubSection.Header>    
+            </HubSection>-->
+
+            <!--<HubSection DataContext="{Binding Albums}"  Padding="40,30,150,44">
                 <HubSection.Header>
-                    <TextBlock x:Uid="Section3Header" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Text="Section 3" Foreground="{StaticResource AppDarkColor}"/>
-                </HubSection.Header>
-                <DataTemplate>
-                    <!-- width of 400 -->
-                    <StackPanel Orientation="Vertical" Margin="2,10,0,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="130"/>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="130"/>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="130"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="270"/>
-                                <RowDefinition Height="95"/>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Image Grid.ColumnSpan="5" Source="Assets/MediumGray.png" Stretch="Fill" Margin="0,0,0,10"/>
-                            <Image Grid.Row="1" Source="Assets/MediumGray.png" Stretch="Fill"/>
-                            <Image Grid.Row="1" Grid.Column="2" Source="Assets/MediumGray.png" Stretch="Fill"/>
-                            <Image Grid.Row="1" Grid.Column="4" Source="Assets/MediumGray.png" Stretch="Fill"/>
-                            <TextBlock Grid.Row="2" Grid.ColumnSpan="5" x:Uid="DescriptionHeader" Margin="0,15,0,0" Style="{StaticResource TitleTextBlockStyle}"/>
-                            <TextBlock Grid.Row="3" Grid.ColumnSpan="5" x:Uid="LongText" Style="{StaticResource BodyTextBlockStyle}"/>
-                        </Grid>
-                    </StackPanel>
-                </DataTemplate>
-            </HubSection>
-           
-            <HubSection DataContext="{Binding Path=[5], Source={StaticResource groupedItemsViewSource}}"  Padding="40,30,150,44">
-                <HubSection.Header>
-                    <TextBlock x:Uid="Section5Header" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Text="Albums"/>
+                    <TextBlock x:Uid="AlbumsHeader" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Foreground="{StaticResource AppDarkColor}" Text="Albums"/>
                 </HubSection.Header>
                 <DataTemplate>
                     <GridView
@@ -180,13 +155,32 @@
                         Margin="-13,-4,0,0"
                         AutomationProperties.AutomationId="ItemGridView"
                         AutomationProperties.Name="Items In Group"
-                        ItemsSource="{Binding Items}"
+                        ItemsSource="{Binding photos}"
                         ItemTemplate="{StaticResource Standard310x260ItemTemplate}"
                         SelectionMode="None"
                         IsSwipeEnabled="false"
                         IsItemClickEnabled="True"
                         ItemClick="ItemView_ItemClick">
                     </GridView>
+                </DataTemplate>
+            </HubSection>-->
+            <HubSection Padding="40,30,40,44" IsHeaderInteractive="False" >
+                <HubSection.Header>
+                    <TextBlock x:Uid="QRHeader" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Foreground="{StaticResource AppDarkColor}" Text="QR" />
+                </HubSection.Header>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="575"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="575"/>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Image Source="Assets/chart.png" Grid.ColumnSpan="5" Margin="0,80,80,0" Stretch="Fill" />
+                        </Grid>
+                    </StackPanel>
                 </DataTemplate>
             </HubSection>
         </Hub>

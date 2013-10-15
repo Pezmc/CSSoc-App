@@ -41,14 +41,22 @@ namespace CSSoc.Data
     {
         public string Id { get; private set; }
         public ObservableCollection<FacebookEvent> Events { get; private set; }
+        public ObservableCollection<FacebookAlbum> Albums { get; private set; }
 
         public FacebookPage(dynamic pageInfo)
         {
             this.Id = pageInfo.id;
 
             this.Events = new ObservableCollection<FacebookEvent>();
+            this.Albums = new ObservableCollection<FacebookAlbum>();
             foreach(dynamic eventInfo in pageInfo.events.data) {
                 this.Events.Add(new FacebookEvent(eventInfo));
+            }
+            var albumIfo = pageInfo.albums.data[0];
+            this.Albums.Add(new FacebookAlbum(albumIfo));
+            foreach (dynamic albumInfo in pageInfo.albums.data)
+            {
+                this.Albums.Add(new FacebookAlbum(albumInfo));
             }
             
         }
@@ -65,8 +73,8 @@ namespace CSSoc.Data
             this.AttendingCount = eventInfo.attending.data.Count;
             this.CoverImage = eventInfo.cover.source;
             this.Description = eventInfo.description;
-            //if (!String.IsNullOrEmpty(eventInfo.end_time))
-                //this.EndTime = DateTime.Parse(eventInfo.end_time);
+            if (!String.IsNullOrEmpty(eventInfo.end_time))
+                this.EndTime = DateTime.Parse(eventInfo.end_time);
             this.StartTime = DateTime.Parse(eventInfo.start_time);
             this.IsDateOnly = eventInfo.is_date_only;
             this.MaybeCount = eventInfo.maybe.data.Count;
@@ -92,6 +100,54 @@ namespace CSSoc.Data
         }
     }
 
+    public class FacebookAlbum
+    {
+        public FacebookAlbum(dynamic albumInfo)
+        {
+            this.Id = albumInfo.id;
+            this.Name = albumInfo.name;
+            this.photos = new ObservableCollection<FacebookImage>();
+            foreach (var photo in albumInfo.photos.data)
+            {
+                this.photos.Add(new FacebookImage(photo.id, photo.source));
+            }
+            //this.Id = eventInfo.id;
+            //this.AttendingCount = eventInfo.attending.data.Count;
+            //this.CoverImage = eventInfo.cover.source;
+            //this.Description = eventInfo.description;
+            //if (!String.IsNullOrEmpty(eventInfo.end_time))
+            //this.EndTime = DateTime.Parse(eventInfo.end_time);
+            //this.StartTime = DateTime.Parse(eventInfo.start_time);
+            //this.IsDateOnly = eventInfo.is_date_only;
+            //this.MaybeCount = eventInfo.maybe.data.Count;
+            //this.Location = eventInfo.location;
+            //this.Name = eventInfo.name;
+            // cover,description,location,attending.fields(id),maybe.fields(id),start_time,end_time,name,is_date_only
+        }
+
+        public string Id { get; private set; }
+        public string Name { get; private set; }
+
+        public ObservableCollection<FacebookImage> photos { get; private set; }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
+    }
+
+    public class FacebookImage
+    {
+        public FacebookImage(string id, string image){
+            this.Id = id;
+            this.Source = image;
+        }
+
+        public string Id { get; private set; }
+
+        public string Source { get; private set; }
+    }
+
     /// <summary>
     /// Creates a collection of groups and items with content read from a static json file.
     /// 
@@ -104,9 +160,16 @@ namespace CSSoc.Data
 
         private ObservableCollection<FacebookEventGroup> _group = new ObservableCollection<FacebookEventGroup>();
 
+        private ObservableCollection<FacebookAlbum> _album = new ObservableCollection<FacebookAlbum>();
+
         public ObservableCollection<FacebookEventGroup> Group
         {
             get { return this._group; }
+        }
+
+        public ObservableCollection<FacebookAlbum> Album
+        {
+            get { return this._album; }
         }
 
         static FacebookDataSource()
@@ -128,6 +191,12 @@ namespace CSSoc.Data
             return _dataSource.Group;
         }
 
+        public static async Task<IEnumerable<FacebookAlbum>> GetAlbumAsync()
+        {
+            await _dataSource.GetFacebookDataAsync();
+
+            return _dataSource.Album;
+        }
 
         private FacebookPage _page = null;
         public ObservableCollection<FacebookEvent> Events
@@ -187,6 +256,12 @@ namespace CSSoc.Data
                 group.Items.Add(new FacebookEvent(eventInfo));
             }
             group.Items.Remove(group.Items.Last());
+
+            foreach (dynamic albumInfo in cssocManData.albums.data)
+            {
+                this.Album.Add(new FacebookAlbum(albumInfo));
+            }
+
             this.Group.Add(group);
         }
     }
