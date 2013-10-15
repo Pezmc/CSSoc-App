@@ -104,10 +104,12 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Image Source="{Binding CoverImage}" Stretch="Fill" Width="420" Height="155"/>
-                        <TextBlock Grid.Row="1" x:Uid="NextEventSubtitle" Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="Wrap"  Margin="0,10,0,0" Text="{Binding Name}"/>
-                        <TextBlock Grid.Row="2" x:Uid="NextEventLocation" Margin="0,0,0,0" Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Location}"/>
-                        <TextBlock Grid.Row="3" x:Uid="NextEventLocation" Margin="0,0,0,0" Style="{StaticResource TitleTextBlockStyle}" Text="{Binding StartTime}"/>
-                        <TextBlock Grid.Row="4" x:Uid="NextEventDescription" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding Description}"/>
+                        <TextBlock Grid.Row="1" x:Uid="NextEventSubtitle" Style="{StaticResource SubheaderTextBlockStyle}" Foreground="{StaticResource AppDarkColor}" TextWrapping="Wrap"  Margin="0,10,0,0" Text="{Binding Name}"/>
+                        <TextBlock Grid.Row="2" x:Uid="NextEventLocation" Margin="0,0,0,0" Style="{StaticResource TitleTextBlockStyle}" Foreground="{StaticResource AppDarkColor}" Text="{Binding Location}"/>
+                        <TextBlock Grid.Row="3" x:Uid="NextEventLocation" Margin="0,0,0,0" Style="{StaticResource TitleTextBlockStyle}" Foreground="{StaticResource AppDarkColor}" Text="{Binding StartTime}"/>
+                        <ScrollViewer Grid.Row="4" x:Uid="NextEventDescScroll" VerticalScrollBarVisibility="Hidden" VerticalScrollMode="Enabled">
+                            <TextBlock Grid.Row="4" x:Uid="NextEventDescription" Style="{StaticResource BodyTextBlockStyle}" Foreground="{StaticResource AppDarkColor}" Text="{Binding Description}"/>
+                        </ScrollViewer>
                     </Grid>
                 </DataTemplate>
             </HubSection>
@@ -138,7 +140,7 @@
             </HubSection>
             <HubSection Padding="7,30,40,44">
                 <HubSection.Header>
-                    <TextBlock x:Uid="Section3Header" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Text="Section 3"/>
+                    <TextBlock x:Uid="Section3Header" TextLineBounds="TrimToBaseline" OpticalMarginAlignment="TrimSideBearings" Text="Section 3" Foreground="{StaticResource AppDarkColor}"/>
                 </HubSection.Header>
                 <DataTemplate>
                     <!-- width of 400 -->

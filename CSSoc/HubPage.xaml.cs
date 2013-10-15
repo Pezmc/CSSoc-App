@@ -69,12 +69,14 @@ namespace CSSoc
         {
             IEnumerable<FacebookEvent> events = await FacebookDataSource.GetEventsAsync();
         
-            int upcomingEventCount = (events.Count() - 1);
+            int upcomingEventCount = (events.Count()-1);
 
-            this.DefaultViewModel["UpcomingEvents"] = events.Take(upcomingEventCount);
+            //this.DefaultViewModel["UpcomingEvents"] = events.Take(upcomingEventCount);
 
             // The last item in the list if the first event
-            this.DefaultViewModel["NextEvent"] = events.Skip(upcomingEventCount).Take(1);
+            var testObj = events.Skip(upcomingEventCount).Take(1);
+            var test = testObj.ElementAt(0);
+            this.DefaultViewModel["NextEvent"] = test;
             /*dynamic res = await _fb.GetTaskAsync("oauth/access_token", new
             {
                 client_id = "378133422317406",

@@ -48,8 +48,8 @@ namespace CSSoc.Data
             this.AttendingCount = eventInfo.attending.data.Count;
             this.CoverImage = eventInfo.cover.source;
             this.Description = eventInfo.description;
-            if (!String.IsNullOrEmpty(eventInfo.end_time))
-                this.EndTime = DateTime.Parse(eventInfo.end_time);
+            //if (!String.IsNullOrEmpty(eventInfo.end_time))
+                //this.EndTime = DateTime.Parse(eventInfo.end_time);
             this.StartTime = DateTime.Parse(eventInfo.start_time);
             this.IsDateOnly = eventInfo.is_date_only;
             this.MaybeCount = eventInfo.maybe.data.Count;
