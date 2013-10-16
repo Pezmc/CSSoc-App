@@ -119,8 +119,8 @@ namespace CSSoc.Common
                 if (_goBackCommand == null)
                 {
                     _goBackCommand = new RelayCommand(
-                        () => this.GoBack(),
-                        () => this.CanGoBack());
+                        () => this.GoBack());//,
+                        //() => this.CanGoBack());
                 }
                 return _goBackCommand;
             }
@@ -182,6 +182,12 @@ namespace CSSoc.Common
         public virtual void GoBack()
         {
             if (this.Frame != null && this.Frame.CanGoBack) this.Frame.GoBack();
+            else
+            {
+                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                localSettings.Values["CustomExitCode"] = 3;
+                App.Current.Exit();
+            }
         }
         /// <summary>
         /// Virtual method used by the <see cref="GoForwardCommand"/> property

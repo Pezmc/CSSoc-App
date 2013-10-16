@@ -77,9 +77,9 @@
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Height="40">
-                        <AppBarButton x:Name="backButton" Icon="Back" Margin="-30,-14,0,0" Foreground="{StaticResource AppDarkColor}"
-                              
+                    <StackPanel Margin="0,-20,174,56" Grid.ColumnSpan="2">
+                        <AppBarButton x:Name="backButton" Icon="Back" Style="{StaticResource AppBackButtonStyle}" FontSize="96" Margin="-30,-14,0,0" Foreground="{StaticResource AppDarkColor}" Height="96" Width="96" IsCompact="False"
+                              IsEnabled="True"
                               Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}" 
                               Visibility="Visible"
                               AutomationProperties.Name="Back"
